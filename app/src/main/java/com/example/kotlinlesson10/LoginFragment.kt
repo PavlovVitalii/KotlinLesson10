@@ -11,49 +11,52 @@ import androidx.fragment.app.commit
 
 class LoginFragment : Fragment() {
 
-    val login = view?.findViewById<EditText>(R.id.login_text)
-    val password = view?.findViewById<EditText>(R.id.password_text)
+    private lateinit var login: EditText
+    private lateinit var password: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        password?.setOnEditorActionListener { _, actionId, _ ->
+    ): View = inflater.inflate(R.layout.fragment_login, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        login = view.findViewById(R.id.login_text)
+        password = view.findViewById(R.id.password_text)
+        password.setOnEditorActionListener { _, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     validate()
-
                     true
                 }
                 else -> false
             }
         }
-
-        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     fun validate() {
+
         val bundle = Bundle()
-        login?.error = if (!login?.text.toString().equals("admin")) {
+
+        login.error = if (login.text.toString() != "admin") {
             "invalid login"
         } else {
-            if (login != null) {
-                bundle.putString("login", login.text.toString())
-            }
-            null
-        }
-        password?.error = if (!password?.text.toString().equals("123456")) {
-            "invalid password"
-        } else {
-            bundle.putString("password", password?.text.toString())
+            bundle.putString("login", login.text.toString())
             null
         }
 
-        if (login?.text.toString().equals("admin") &&
-            password?.editableText.toString().equals("123456")
+        password.error = if (password.text.toString() != "123456") {
+            "invalid password"
+        } else {
+            bundle.putString("password", password.text.toString())
+            null
+        }
+
+        if (login.text.toString() == "admin" &&
+            password.text.toString() == "123456"
         ) {
-            parentFragmentManager.commit {
-                replace(R.id.login_text, ResultFragment())
+            childFragmentManager.commit {
+                replace(R.id.login_text,ResultFragment())
             }
         }
 

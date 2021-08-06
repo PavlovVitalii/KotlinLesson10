@@ -1,27 +1,32 @@
 package com.example.kotlinlesson10
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 
 
 class ResultFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
+    private lateinit var login: TextView
+    private lateinit var password: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View = inflater.inflate(R.layout.fragment_result, container, false)
 
-        return inflater.inflate(R.layout.fragment_result, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val bandle = Bundle()
+        login = view.findViewById(R.id.show_login)
+        password = view.findViewById(R.id.show_password)
+        login.text = bandle.getString("login")
+        password.text = bandle.getString("password")
+
     }
+
+
 }

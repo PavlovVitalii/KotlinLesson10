@@ -17,10 +17,17 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        val bandle = Bundle()
 
-            parentFragmentManager.commit {
-                replace(R.id.splash_fragment,LoginFragment())
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (!bandle.isEmpty) {
+                parentFragmentManager.commit {
+                    replace(R.id.splash_fragment, ResultFragment())
+                }
+            } else {
+                parentFragmentManager.commit {
+                    replace(R.id.splash_fragment, LoginFragment())
+                }
             }
         }, 2000)
 
