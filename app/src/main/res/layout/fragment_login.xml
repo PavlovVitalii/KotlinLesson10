@@ -6,7 +6,6 @@
     tools:context=".LoginFragment">
 
 
-
     <EditText
         android:id="@+id/login_text"
         android:layout_width="match_parent"

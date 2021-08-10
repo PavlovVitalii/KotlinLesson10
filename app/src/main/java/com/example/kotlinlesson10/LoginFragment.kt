@@ -56,7 +56,7 @@ class LoginFragment : Fragment() {
             password.text.toString() == "123456"
         ) {
             childFragmentManager.commit {
-                replace(R.id.login_text,ResultFragment())
+                replace(R.id.splash_fragment,ResultFragment())
             }
         }
 
