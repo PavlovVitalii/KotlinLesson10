@@ -12,19 +12,29 @@ class ResultFragment : Fragment() {
 
     private lateinit var login: TextView
     private lateinit var password: TextView
+    private lateinit var loginText: String
+    private lateinit var passwordText: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            loginText = it.getString("login").toString()
+            passwordText = it.getString("password").toString()
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_result, container, false)
 
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bandle = Bundle()
         login = view.findViewById(R.id.show_login)
         password = view.findViewById(R.id.show_password)
-        login.text = bandle.getString("login")
-        password.text = bandle.getString("password")
+        login.text = "Login ${loginText}"
+        password.text = "Password ${passwordText}"
 
     }
 

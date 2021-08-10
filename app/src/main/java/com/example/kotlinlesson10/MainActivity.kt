@@ -12,9 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val splasActivity = SplashFragment()
+
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.splash_fragment,SplashFragment())
+            add(R.id.splash_fragment,splasActivity)
 
         }
 

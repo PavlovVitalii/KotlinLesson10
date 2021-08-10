@@ -1,5 +1,6 @@
 package com.example.kotlinlesson10
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var login: EditText
     private lateinit var password: EditText
+    var sared = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +39,7 @@ class LoginFragment : Fragment() {
     fun validate() {
 
         val bundle = Bundle()
+        val result = ResultFragment()
 
         login.error = if (login.text.toString() != "admin") {
             "invalid login"
@@ -55,8 +58,15 @@ class LoginFragment : Fragment() {
         if (login.text.toString() == "admin" &&
             password.text.toString() == "123456"
         ) {
-            childFragmentManager.commit {
-                replace(R.id.splash_fragment,ResultFragment())
+
+            sared.edit().putString("login", login.text.toString())
+            sared.edit().putString("password", password.text.toString())
+
+            parentFragmentManager.commit {
+                result.arguments = bundle
+                replace(R.id.splash_fragment, result)
+
+
             }
         }
 
