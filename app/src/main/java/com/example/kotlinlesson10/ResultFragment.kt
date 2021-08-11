@@ -1,5 +1,7 @@
 package com.example.kotlinlesson10
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +16,7 @@ class ResultFragment : Fragment() {
     private lateinit var password: TextView
     private lateinit var loginText: String
     private lateinit var passwordText: String
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            loginText = it.getString("login").toString()
-            passwordText = it.getString("password").toString()
-        }
-    }
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreateView(
@@ -31,12 +26,21 @@ class ResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         login = view.findViewById(R.id.show_login)
         password = view.findViewById(R.id.show_password)
-        login.text = "Login ${loginText}"
-        password.text = "Password ${passwordText}"
+        loginText = sharedPreferences.getString("login", "").toString()
+        passwordText = sharedPreferences.getString("password", "").toString()
+
+
+        login.text = "Login: ${loginText}"
+        password.text = "Password: ${passwordText}"
+
 
     }
 
 
 }
+
+

@@ -1,6 +1,7 @@
 package com.example.kotlinlesson10
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var login: EditText
     private lateinit var password: EditText
-    var sared = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,7 @@ class LoginFragment : Fragment() {
 
         val bundle = Bundle()
         val result = ResultFragment()
+        sharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
 
         login.error = if (login.text.toString() != "admin") {
             "invalid login"
@@ -59,11 +61,10 @@ class LoginFragment : Fragment() {
             password.text.toString() == "123456"
         ) {
 
-            sared.edit().putString("login", login.text.toString())
-            sared.edit().putString("password", password.text.toString())
+            sharedPreferences.edit().putString("login", login.text.toString()).apply()
+            sharedPreferences.edit().putString("password", password.text.toString()).apply()
 
             parentFragmentManager.commit {
-                result.arguments = bundle
                 replace(R.id.splash_fragment, result)
 
 

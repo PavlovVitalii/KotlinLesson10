@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.splash_fragment,splasActivity)
+            add(R.id.splash_fragment, splasActivity)
 
         }
 
